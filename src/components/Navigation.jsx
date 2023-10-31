@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { FaBars } from "react-icons/fa6";
 import { BiHomeAlt } from "react-icons/bi";
 import { AiFillCloseSquare } from "react-icons/ai";
+import Menu from "./data/MenuData";
 
 const Navigation = () => {
   const [toggleNavBar, setToggleNavBar] = useState(false);
@@ -11,10 +12,10 @@ const Navigation = () => {
     setToggleNavBar(!toggleNavBar);
   };
   return (
-    <aside>
-      <div>
-        <div onClick={handleToggleNavBar}>
-          <FaBars className="hover:text-slate-400 text-3xl" />
+    <aside className="h-[15%] bg-slate-900">
+      <div className="border border-slate-900">
+        <div onClick={handleToggleNavBar} className="ml-7 mt-7">
+          <FaBars className="hover:text-amber-500 text-3xl hover:duration-300 text-white" />
         </div>
 
         <nav
@@ -23,28 +24,24 @@ const Navigation = () => {
           }`}
         >
           <AiFillCloseSquare
-            className="w-[140px] h-[35px] mt-12 hover:text-slate-400"
+            className="w-[140px] h-[35px] mt-12 hover:text-amber-500 hover:duration-300"
             onClick={handleToggleNavBar}
           />
           <ul>
-            <li>
-              <Link to="#" className="flex items-center mt-10 ml-16 gap-4">
-                <BiHomeAlt />
-                <span>Homepage</span>
-              </Link>
-            </li>
-            <li>
-              <Link to="#" className="flex items-center mt-10 ml-16 gap-4">
-                <BiHomeAlt />
-                <span>Members</span>
-              </Link>
-            </li>
-            <li>
-              <Link to="#" className="flex items-center mt-10 ml-16 gap-4">
-                <BiHomeAlt />
-                <span>Products</span>
-              </Link>
-            </li>
+            {Menu.map((item, index) => {
+              return (
+                <li key={index}>
+                  <Link
+                    to={item.path}
+                    className="flex items-center mt-10 gap-4 py-4 px-16 w-[100%] rounded-md hover:bg-amber-500 hover:text-black hover:duration-300"
+                    onClick={handleToggleNavBar}
+                  >
+                    {item.icon}
+                    <span>{item.title}</span>
+                  </Link>
+                </li>
+              );
+            })}
           </ul>
         </nav>
       </div>
